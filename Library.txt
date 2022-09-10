@@ -1,0 +1,13 @@
+1 . name : DHT sensor library
+    link : https://github.com/adafruit/DHT-sensor-library
+    
+2 . name : BH1750
+    link : https://github.com/claws/BH1750
+
+3 . name : Adafruit SSD1306
+    link : https://github.com/adafruit/Adafruit_SSD1306
+    
+4 . name : Adafruit GFX Library
+    link : https://github.com/adafruit/Adafruit-GFX-Library
+    
+    

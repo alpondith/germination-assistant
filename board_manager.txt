@@ -1,0 +1,4 @@
+name : ESP32 
+link : https://dl.espressif.com/dl/package_esp32_index.json
+github : https://github.com/espressif/arduino-esp32
+youtube : https://www.youtube.com/watch?v=CD8VJl27n94&ab_channel=SyntheticState
