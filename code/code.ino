@@ -4,38 +4,11 @@
 using namespace std;
 
 
-// Example testing sketch for various DHT humidity/temperature sensors
-// Written by ladyada, public domain
 
-// REQUIRES the following Arduino libraries:
-// - DHT Sensor Library: https://github.com/adafruit/DHT-sensor-library
-// - Adafruit Unified Sensor Lib: https://github.com/adafruit/Adafruit_Sensor
-
+// Temperature & Humidity
 #include "DHT.h"
-
-
-
-#define DHT_PIN 4     // Digital pin connected to the DHT sensor
-// Feather HUZZAH ESP8266 note: use pins 3, 4, 5, 12, 13 or 14 --
-// Pin 15 can work but DHT must be disconnected during program upload.
-
-// Uncomment whatever type you're using!
-//#define DHTTYPE DHT11   // DHT 11
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-//#define DHTTYPE DHT21   // DHT 21 (AM2301)
-
-// Connect pin 1 (on the left) of the sensor to +5V
-// NOTE: If using a board with 3.3V logic like an Arduino Due connect pin 1
-// to 3.3V instead of 5V!
-// Connect pin 2 of the sensor to whatever your DHT_PIN is
-// Connect pin 3 (on the right) of the sensor to GROUND (if your sensor has 3 pins)
-// Connect pin 4 (on the right) of the sensor to GROUND and leave the pin 3 EMPTY (if your sensor has 4 pins)
-// Connect a 10K resistor from pin 2 (data) to pin 1 (power) of the sensor
-
-// Initialize DHT sensor.
-// Note that older versions of this library took an optional third parameter to
-// tweak the timings for faster processors.  This parameter is no longer needed
-// as the current DHT reading algorithm adjusts itself to work on faster procs.
+#define DHT_PIN 4     
+#define DHTTYPE DHT22
 DHT dht(DHT_PIN, DHTTYPE);
 
 // Light Sensor
@@ -79,10 +52,8 @@ void setup() {
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.setTextSize(1);
 
-
-
-  
 }
+
 
 void loop() {
   
@@ -100,7 +71,7 @@ void loop() {
 
   displayData(humidity ,temperature , light , soilMoisture);
   
-  delay(5000);
+  delay(2000);
   
 }
 
@@ -191,51 +162,4 @@ String getLight(){
   
 }
 
-
-
-
-
-
-
-
-
-// DHT Functionalities
-// String dhtSensor(){
-//
-//  // Sensor readings
-//  // Read humidity
-//  float humidity = dht.readHumidity();
-//  // Read temperature as Celsius (the default)
-//  float temperatureInCelsius = dht.readTemperature();
-//  // Read temperature as Fahrenheit (isFahrenheit = true)
-//  float temperatureInFahrenheit = dht.readTemperature(true);
-//
-//  // Check if any reads failed and exit early (to try again).
-//  if ( isnan(humidity) || isnan(temperatureInCelsius) || isnan(temperatureInFahrenheit) ) {
-//    Serial.println("Failed to read from DHT sensor!");
-//    return "DHT Sensor not found";
-//  }
-//
-//  // Compute heat index in Fahrenheit (the default)
-//  float heatIndexInFahrenheit = dht.computeHeatIndex(temperatureInFahrenheit , humidity);
-//  // Compute heat index in Celsius (isFahreheit = false)
-//  float heatIndexInCelsius = dht.computeHeatIndex(temperatureInCelsius, humidity, false);
-//
-//  Serial.print("Humidity: ");
-//  Serial.print(humidity);
-//  Serial.print("%  Temperature: ");
-//  Serial.print(temperatureInCelsius);
-//  Serial.print("°C ");
-//  Serial.print(temperatureInFahrenheit);
-//  Serial.print("°F  Heat index: ");
-//  Serial.print(heatIndexInCelsius);
-//  Serial.print("°C ");
-//  Serial.print(heatIndexInFahrenheit);
-//  Serial.println("°F");
-//
-//  String data = "Humidity : " + String(humidity);
-//
-//  return data;
-//
-//}
   
