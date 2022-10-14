@@ -1,5 +1,6 @@
-#include <WiFi.h>;
-#include <HTTPClient.h>;
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
 
 String url = "https://ga.insoulit.com/api/data";
 
@@ -8,7 +9,7 @@ String url = "https://ga.insoulit.com/api/data";
 const char* ssid = "black_sky";
 const char* password =  "blackmirror";
 unsigned long previousMillis = 0;
-unsigned long interval = 10000;
+unsigned long interval = 30000;
   
 void setup() {
   
@@ -21,40 +22,44 @@ void setup() {
 void loop() {
 
   checkWifiConnection();
+  sendDataToServer( 10.56 , 10.55 , 10.55 , 10.55 , 10.55 );
+  delay(5000);
+  
+}
 
-  WiFiClient client;
+void sendDataToServer(double t ,double h ,double l ,double m ,double p ){
+  
+  Serial.println("--------------------------------------------------------");
+  
   HTTPClient http;   
   
-  http.begin(client , url);
-//  http.addHeader("Content-Type", "application/json");   
-  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");   
   http.addHeader("Accept", "application/json");
-//
-//  const size_t CAPACITY = JSON_OBJECT_SIZE(1);
-//  StaticJsonDocument<CAPACITY> doc ;
 
-
-
-  String httpRequestData = "device_key=xuHUr5wJI04O0A4tRKTT";        
-  httpRequestData = httpRequestData + "&T=39";
-  httpRequestData = httpRequestData + "&H=39";  
-  httpRequestData = httpRequestData + "&L=39";  
-  httpRequestData = httpRequestData + "&M=39";  
-  httpRequestData = httpRequestData + "&P=39"; 
-  Serial.println(httpRequestData); 
-  int httpResponseCode = http.POST(httpRequestData);
+  StaticJsonDocument<256> doc;
   
-  Serial.print("HTTP Response code : ");
+  doc["device_key"] = "xuHUr5wJI04O0A4tRKTT";
+  doc["T"] = t;
+  doc["H"] = h;
+  doc["L"] = l;
+  doc["M"] = m;
+  doc["P"] = p;
+
+  char output[256];
+  serializeJson(doc, output);
+  Serial.println(output);
+  
+  int httpResponseCode = http.POST(output);
+  
+  Serial.print(" HTTP Response code : ");
   Serial.println(httpResponseCode);
-  
 
-  // Free resources
+  Serial.println(http.getString());
+  
   http.end();
   
-  
-  
-  delay(8000);  //Send a request every 10 seconds
-  
+  Serial.println("--------------------------------------------------------");
 }
 
 void initWiFi() {
