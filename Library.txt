@@ -10,4 +10,5 @@
 4 . name : Adafruit GFX Library
     link : https://github.com/adafruit/Adafruit-GFX-Library
     
-    
+5 . name : ArduinoJson
+    link : https://arduinojson.org/?utm_source=meta&utm_medium=library.properties
