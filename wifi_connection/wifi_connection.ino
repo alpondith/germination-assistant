@@ -4,7 +4,6 @@
 
 String url = "https://ga.insoulit.com/api/data";
 
-
 // wifi connection variables 
 const char* ssid = "black_sky";
 const char* password =  "blackmirror";
