@@ -11,12 +11,12 @@ using namespace std;
 
 
 // wifi connection variables 
-const char* ssid = "Alpondith";
-const char* password =  "12345678";
+const char* ssid = "black_sky";
+const char* password =  "blackmirror";
 unsigned long previousMillis = 0;
 unsigned long interval = 30000; // wifi connection checking interval
 
-String url = "https://ga.insoulit.com/api/data";
+String url = "https://gassistant.insoulit.com/api/data";
 
 
 
@@ -37,8 +37,11 @@ BH1750 lightMeter(0x23);
 
 
 // Soil Moisture Pin
-#define SOIL_MOISTURE_PIN 5
+#define SOIL_MOISTURE_PIN 2
 
+
+// Relay Module Pins
+//#define LIGHT_PIN 5 
 
 
 // Display
@@ -65,6 +68,9 @@ void setup() {
   // light sensor
   Wire.begin();
   lightMeter.begin();
+
+  // Relay Module 
+//  pinMode(LIGHT_PIN, OUTPUT);
 
   // display
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
@@ -93,12 +99,15 @@ void loop() {
   Serial.println("*************************************************");
   Serial.println();
 
+//  digitalWrite(LIGHT_PIN, HIGH);
+
   displayData(temperature ,humidity , light , soilMoisture);
 
   checkWifiConnection();
   sendDataToServer( temperature , humidity , light , soilMoisture , 0.0 );
 
-  delay(5000);
+  delay(9000);
+//  digitalWrite(LIGHT_PIN, LOW);
   
 }
 
@@ -146,7 +155,7 @@ void sendDataToServer(double t ,double h ,double l ,double m ,double p ){
 
   StaticJsonDocument<256> doc;
   
-  doc["device_key"] = "YsxlZ7kCv5CxzWjMRc5y";
+  doc["device_key"] = "PY5WGkoHwu4azEYOKmL51S3g6WEUKKKPAw6JCs3V";
   doc["T"] = t;
   doc["H"] = h;
   doc["L"] = l;
