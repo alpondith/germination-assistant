@@ -37,7 +37,7 @@ BH1750 lightMeter(0x23);
 
 
 // Soil Moisture Pin
-#define SOIL_MOISTURE_PIN 2
+#define SOIL_MOISTURE_PIN 18
 
 
 // Relay Module Pins
@@ -61,7 +61,7 @@ Adafruit_SSD1306 display = Adafruit_SSD1306(128, 64, &Wire);
 // ***************************************************************//
 void setup() {
 //  Serial.begin(115200);
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   dht.begin();
 
