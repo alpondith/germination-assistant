@@ -37,11 +37,7 @@ BH1750 lightMeter(0x23);
 
 
 // Soil Moisture Pin
-#define SOIL_MOISTURE_PIN 18
-
-
-// Relay Module Pins
-//#define LIGHT_PIN 5 
+#define SOIL_MOISTURE_PIN 34
 
 
 // Display
@@ -68,9 +64,6 @@ void setup() {
   // light sensor
   Wire.begin();
   lightMeter.begin();
-
-  // Relay Module 
-//  pinMode(LIGHT_PIN, OUTPUT);
 
   // display
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
@@ -99,15 +92,12 @@ void loop() {
   Serial.println("*************************************************");
   Serial.println();
 
-//  digitalWrite(LIGHT_PIN, HIGH);
-
   displayData(temperature ,humidity , light , soilMoisture);
 
   checkWifiConnection();
   sendDataToServer( temperature , humidity , light , soilMoisture , 0.0 );
 
   delay(9000);
-//  digitalWrite(LIGHT_PIN, LOW);
   
 }
 
@@ -131,7 +121,7 @@ void displayData( double temperature ,double humidity, double light , double soi
   display.println("");
   display.println("Light : " + String(light));
   display.println("");
-  display.println("Soil Moisture : " + String(soilMoisture));
+  display.println("Soil Moisture: " + String(soilMoisture));
   
   yield();
   display.display();
@@ -243,13 +233,22 @@ double getLight(){
 double getSoilMoisture(){
   
   double soilMoisture = analogRead(SOIL_MOISTURE_PIN);
+  Serial.println("Soil Moisture Raw value:" + String(soilMoisture));
+  soilMoisture = map(soilMoisture,2600,1000,0,100);
+  
+  if(soilMoisture > 100){
+    soilMoisture = 100;  
+  }
+  if(soilMoisture < 0){
+    soilMoisture = 0;  
+  }
 
   if ( isnan(soilMoisture) ) {
     Serial.println("Soil moisture sensor Error");
     return -100000;
   }
   
-  Serial.println("Soil Moisture:" + String(soilMoisture));
+  Serial.println("Soil Moisture:" + String(soilMoisture) + " %");
   
   return soilMoisture;
 }
