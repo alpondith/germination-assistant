@@ -11,8 +11,10 @@ using namespace std;
 
 
 // wifi connection variables 
-const char* ssid = "black_sky";
-const char* password =  "blackmirror";
+//const char* ssid = "black_sky";
+//const char* password =  "blackmirror";
+const char* ssid = "Alpondith";
+const char* password =  "12345678";
 unsigned long previousMillis = 0;
 unsigned long interval = 30000; // wifi connection checking interval
 
