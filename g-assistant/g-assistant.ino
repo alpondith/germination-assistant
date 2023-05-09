@@ -11,14 +11,14 @@ using namespace std;
 
 
 // wifi connection variables 
-const char* ssid = "black_sky";
-const char* password =  "blackmirror";
-//const char* ssid = "Alpondith";
-//const char* password =  "12345678";
+//const char* ssid = "black_sky";
+//const char* password =  "blackmirror";
+const char* ssid = "Alpondith";
+const char* password =  "12345678";
 unsigned long previousMillis = 0;
 unsigned long interval = 30000; // wifi connection checking interval
 
-String url = "https://gassistant.insoulit.com/api/data";
+String url = "https://gassistant.hbbma.com/api/data";
 
 
 
@@ -235,8 +235,8 @@ double getLight(){
 double getSoilMoisture(){
   
   double soilMoisture = analogRead(SOIL_MOISTURE_PIN);
-//  Serial.println("Soil Moisture Raw value:" + String(soilMoisture));
-  soilMoisture = map(soilMoisture,2600,1000,0,300);
+  Serial.println("Soil Moisture Raw value:" + String(soilMoisture));
+  soilMoisture = map(soilMoisture,2600,1000,0,30);
   
   if(soilMoisture > 100){
     soilMoisture = 100;  
